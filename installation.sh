@@ -21,6 +21,8 @@ Chk_Root_Login()
   		echo "LOGIN AS SUPER USER(root) TO INSTALL BAADAL!!!"
   		exit 1
 	fi
+
+	echo "User Logged in as Root............................................"
 }
 
 Cnfgr_Ldap_Srvc()
@@ -74,8 +76,8 @@ Instl_Pkgs()
  	
 			if test $status -eq 1;  then 
 
-		        	echo "$pkg Package not installed................................................"
-				echo "Installing Package: $pkg.................................................."
+		        	echo "$pkg Package not installed................"
+				echo "Installing Package: $pkg.................."
 
 		        	apt-get -y install $pkg --force-yes
 				status=$?
@@ -100,6 +102,8 @@ Instl_Pkgs()
 			exit 1 
 		fi	
 	done
+
+	echo "Packages Installed Successfully..................................."
 }
 
 
@@ -190,35 +194,19 @@ Setup_Web2py()
 		ldap) mv /home/www-data/web2py/applications/baadal/models/db.py.ldap /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.ldap /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.ldap /home/www-data/web2py/applications/baadal/private/process.py
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.sqlite
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.sqlite
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.sqlite
 		      ;;
 	       mysql) mv /home/www-data/web2py/applications/baadal/models/db.py.mysql /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.mysql /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.mysql /home/www-data/web2py/applications/baadal/private/process.py
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.ldap
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.sqlite
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.ldap
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.sqlite
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.ldap
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.sqlite
 		      ;;
 		   *) mv /home/www-data/web2py/applications/baadal/models/db.py.sqlite /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.sqlite /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.sqlite /home/www-data/web2py/applications/baadal/private/process.py
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/private/process.py.ldap
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/models/functions.py.ldap
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.mysql
-		      rm /home/www-data/web2py/applications/baadal/models/db.py.ldap
 	esac
 
 	chown -R www-data:www-data /home/www-data/
+
+	echo "Web2py Setup Successful.........................................."
 
 
 }
@@ -241,20 +229,56 @@ Enbl_Modules()
 			    if test $? -ne 0; then
 				echo "UNABLE TO RESTART MYSQL!!!"
 				exit 1
-			    fi
-
+			    fi		   
 
 			    if [ -d /var/lib/mysql/baadal ] ; then
 
-				    mysql -uroot -p -e "drop database baadal"
-			    fi
+				echo "Dropping Previous Database Baadal........."
+				
+				while true; do
+			
+					mysql -uroot -p -e "drop database baadal" 2> temp
+					cat temp
+					is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)" temp | wc -l`
 
-			    mysql -uroot -p -e "create database baadal"
-			    
-			    if test $? -ne 0; then
+					rm -rf temp
+			
+					if test $is_valid_paswd -ne 0; then
+			
+					    echo "INVALID MYSQL PASSWORD!!!!"				    
+					else
+
+					    break
+					fi
+				done
+	
+			     fi
+
+			     echo "Creating Database Baadal......................"
+
+
+			     while true; do
+			
+				mysql -uroot -p -e "create database baadal" 2> temp
+				cat temp
+				is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)" temp | wc -l`
+
+				rm -rf temp
+
+				if test $is_valid_paswd -ne 0; then
+			
+				    echo "INVALID MYSQL PASSWORD!!!!"				    
+				else
+
+				    break
+				fi
+			     done
+
+			     if test $? -ne 0; then
+
 				echo "UNABLE TO CREATE DATABASE!!!"
 				exit 1
-			    fi
+			     fi
 	esac
 
 }
