@@ -1,0 +1,55 @@
+{{extend 'layout.html'}}
+<h3>Resource wastage statistics</h3>
+{{if not data:}}
+    <center> No data available for vms</center>
+{{else:}}
+<script type="text/Javascript">
+function load(url,event)
+{
+	location.href=url;
+}
+</script>
+<h4>sorted by {{=sortedby}}</h4>
+<form name="select">
+<INPUT TYPE="radio" NAME="type" VALUE="hcpu" onclick="load('{{=URL('wastage/hcpu/')}}');"/><a>hCPU</a> &nbsp;&nbsp;
+<INPUT TYPE="radio" NAME="type" VALUE="dcpu" onclick="load('{{=URL('wastage/dcpu/')}}');"/><a>dCPU</a> &nbsp;&nbsp;
+<INPUT TYPE="radio" NAME="type" VALUE="wcpu" onclick="load('{{=URL('wastage/wcpu/')}}');"/><a>wCPU</a> &nbsp;&nbsp;
+<INPUT TYPE="radio" NAME="type" VALUE="hram" onclick="load('{{=URL('wastage/hram/')}}');"/><a>hRAM</a> &nbsp;&nbsp;
+<INPUT TYPE="radio" NAME="type" VALUE="dram" onclick="load('{{=URL('wastage/dram/')}}');"/><a>dRAM</a> &nbsp;&nbsp;
+<INPUT TYPE="radio" NAME="type" VALUE="wram" onclick="load('{{=URL('wastage/wram/')}}');"/><a>wRAM</a> &nbsp;&nbsp;
+</form>
+  <table>
+     <tr>
+        <th>VM Name</th>
+        <th>Last 1 Hour</th>
+        <th>Last 1 Day</th>
+        <th>Last 1 Week</th>
+     </tr>
+      {{for vm in data:}}
+         {{if(vm[sortedby]>75):}}<tr style='background-color:Cyan'>
+         {{else:}}
+	     {{if(vm[sortedby]>25):}}<tr style='background-color:YellowGreen'>
+	     {{else:}}<tr style='background-color:LightSalmon'>
+	     {{pass}}
+         {{pass}}
+            <td>{{=vm['vm']}}</td>
+	    <td>CPU: {{=vm['hcpu']}} | RAM: {{=vm['hram']}}</td>
+	    <td>CPU: {{=vm['dcpu']}} | RAM: {{=vm['dram']}}</td>
+	    <td>CPU: {{=vm['wcpu']}} | RAM: {{=vm['wram']}}</td>
+      </tr>	
+      {{pass}}
+    </table>
+{{pass}}
+{{if not error:}}
+	<center> All vms are running fine. No errors</center>
+{{else:}}
+	<table>
+	  <tr>
+		<th> VM Name</th>
+		<th> Error</th>
+	  </tr>
+	 {{for vm in error:}}
+	   <tr><td>{{=vm['vm']}}</td><td>{{=vm['error']}}</td></tr>
+	 {{pass}}
+	</table>
+{{pass}}
