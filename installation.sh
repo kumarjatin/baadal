@@ -239,7 +239,7 @@ Enbl_Modules()
 			
 					mysql -uroot -p -e "drop database baadal" 2> temp
 					cat temp
-					is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)" temp | wc -l`
+					is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' " temp | wc -l`
 
 					rm -rf temp
 			
@@ -261,7 +261,7 @@ Enbl_Modules()
 			
 				mysql -uroot -p -e "create database baadal" 2> temp
 				cat temp
-				is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)" temp | wc -l`
+				is_valid_paswd=`grep "ERROR 1045 (28000): Access denied for user 'root'@'localhost' " temp | wc -l`
 
 				rm -rf temp
 
