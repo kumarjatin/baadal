@@ -13,5 +13,9 @@ Please follow the bellow mentioned steps to setup baadal:
   -> SSL Certificate Details
   -> Your key path for ssh
   -> Web2py password
+9. After the installation is over open your browser and type in the address bar "localhost/admin". 
+It will ask for the web2py passoword you had enterned at the time of installation. After enterning the 
+password go to the baadal databse and add a user in the auth_user table. After a new user has been added 
+you can now go to the url "localhost/baadal".
 
 NOTE: A new cron job will be setup in your system to monitor the running of baadal. This cron job will run every 45 mins.
