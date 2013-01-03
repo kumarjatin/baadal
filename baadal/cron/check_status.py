@@ -60,7 +60,7 @@ def check_process_status(proc_list,proc_type):
             send_mail = 1
         elif 1 == flag:
             LOGGER.info(proc_name + " IS RUNNING FINE")
-        elif 0 < flag:
+        elif 1 < flag:
             message += "MULTIPLE INSTANCES OF " + proc_name + " RUNNING!!!\n"
             LOGGER.info(message)
             LOGGER.info("Initializing sending alert mail...............")
