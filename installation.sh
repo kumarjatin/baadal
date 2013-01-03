@@ -194,14 +194,33 @@ Setup_Web2py()
 		ldap) mv /home/www-data/web2py/applications/baadal/models/db.py.ldap /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.ldap /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.ldap /home/www-data/web2py/applications/baadal/private/process.py
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.mysql
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.mysql
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.mysql
+
 		      ;;
 	       mysql) mv /home/www-data/web2py/applications/baadal/models/db.py.mysql /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.mysql /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.mysql /home/www-data/web2py/applications/baadal/private/process.py
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.ldap
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.ldap
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.sqlite
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.ldap
 		      ;;
 		   *) mv /home/www-data/web2py/applications/baadal/models/db.py.sqlite /home/www-data/web2py/applications/baadal/models/db.py
 		      mv /home/www-data/web2py/applications/baadal/models/functions.py.sqlite /home/www-data/web2py/applications/baadal/models/functions.py
 		      mv /home/www-data/web2py/applications/baadal/private/process.py.sqlite /home/www-data/web2py/applications/baadal/private/process.py
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.ldap
+		      rm /home/www-data/web2py/applications/baadal/models/db.py.mysql
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.ldap
+		      rm /home/www-data/web2py/applications/baadal/models/functions.py.mysql
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.ldap
+		      rm /home/www-data/web2py/applications/baadal/private/process.py.mysql
 	esac
 
 	chown -R www-data:www-data /home/www-data/
