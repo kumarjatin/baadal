@@ -1,0 +1,15 @@
+auto eth1
+iface eth1 inet manual
+
+auto br0
+iface br0 inet static
+address 10.20.17.80
+network 10.20.1.0
+netmask 255.255.0.0
+broadcast 10.20.255.255
+gateway 10.20.1.1
+dns-nameservers 10.20.3.2
+bridge_ports eth1
+bridge_stp off
+bridge_fd 0
+bridge_maxwait 0

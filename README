@@ -1,0 +1,21 @@
+Please follow the bellow mentioned steps to setup baadal:
+
+1. Download the files in a folder(call it baadal_setup).
+2. Open your terminal and run "sudo su" command to login as root.
+3. Change the directory location to the folder in which you have downloaded all baadal setup data.
+4. Change the Authentication_Type you want in the installation.cfg file.(sqlite and mysql supported currently) 
+5. If you choose "mysql" as authentication type move into the "baadal/models" directory present in the current directory and set the mysql password in db.py.mysql file.(While installing baadal only the neccessary files will be copied according to the Authentication type specified ny the user)
+6. Download the zip file web2py_src.zip and rename it as web2py_tmp.zip and place it in the baadal_setup folder
+7. Move to the original baadal_setup folder through the terminal and run the command "./installation.sh"
+8. After you Run the command the following details you would have to enter:
+  -> Web2py setup config
+  -> Mysql password(if mysql selected as authentication type)
+  -> SSL Certificate Details
+  -> Your key path for ssh
+  -> Web2py password
+9. After the installation is over open your browser and type in the address bar "localhost/admin". 
+It will ask for the web2py passoword you had enterned at the time of installation. After enterning the 
+password go to the baadal databse and add a user in the auth_user table. After a new user has been added 
+you can now go to the url "localhost/baadal".
+
+NOTE: A new cron job will be setup in your system to monitor the running of baadal. This cron job will run every 45 mins.
