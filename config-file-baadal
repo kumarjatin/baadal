@@ -1,0 +1,45 @@
+[GENERAL_CONF]
+database_type=sqlite
+
+# Specify the authentication mechanism to be used
+[AUTHENTICATION_CONF]
+authentication_type=ldap
+
+# Mail sending configurations
+[MAIL_CONF]
+smtp_server=smtp.iitd.ernet.in
+smtp_port=25
+email_to=amohan.visitor@cse.iitd.ac.in,saransh@cse.iitd.ac.in
+email_from=noreply@cse.iitd.ac.in
+email_sender_account_username=amohan.visitor
+email_sender_account_password=iwasbornon21
+
+# Specify the ssl certificate certifications to be used
+[SSL_CERTIFICATE_CONF]
+[ req ]
+default_bits=1024
+distinguished_name=req_distinguished_name
+prompt=no
+[ req_distinguished_name ]
+C=IN
+ST=New Delhi
+L=Delhi
+O=IITD
+OU=CSED
+CN=Baadal
+emailAddress=baadal@cse.iitd.ac.in
+
+# If database to be used is "mysql" fill the below details
+[MYSQL_CONF]
+mysql_password=baadal
+mysql_reinstall=n
+
+# Web2py setup configurations
+[WEB2PY_CONF]
+web2py_password=web2py
+reinstall_web2py=y
+use_old_web2py_version=y
+
+# Configurations to be used for host set-up
+[HOST_CONFIG]
+host_ip_list=10.20.3.57:cloud_cse_321
