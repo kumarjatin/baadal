@@ -1,0 +1,34 @@
+{{extend 'layout.html'}}
+
+<script language='javascript'>
+	function addhost()
+	{
+#		var add_host = document.getElementId('add_host').checked;
+#		var setup_host = document.getElementId('setup_host').checked;
+
+		alert("add_host");
+		alert("setup_host");
+
+	}
+
+	function test()
+	{
+		alert("hello how are you");
+	}
+</script>
+
+<form action="" method="get">
+	<table>
+	    <tr>
+		<td><input type="radio" name="add_host" id="add_host_id" checked="checked" onclick=addhost() /></td>
+		<td> Add Host </td>
+	    </tr>
+	
+	    <tr>
+		<td><input type='radio' name='setup_host' id='setup_host_id' onclick="addhost();" /></td>
+		<td> Add and Setup Host </td>
+    	    </tr>
+	</table>
+</form>
+
+<input type="checkbox" onclick=test() />
