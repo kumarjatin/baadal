@@ -1,8 +1,0 @@
-# Mail sending configurations
-[MAIL_CONF]
-smtp_server=smtp.iitd.ernet.in
-smtp_port=25
-email_to=apoorvemohan@gmail.com
-email_from=noreply@cse.iitd.ac.in
-email_sender_account_username=amohan.visitor
-email_sender_account_password=iwasbornon21
