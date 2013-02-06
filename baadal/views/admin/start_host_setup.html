@@ -1,0 +1,40 @@
+{{extend 'layout.html'}}
+<script type="text/javascript">
+
+var intrvl = setInterval(test1,100);
+function test1()
+{      
+       var status = document.getElementById("target").innerHTML;
+
+       if(status == "")
+	{
+	       ajax('{{=URL('get_host_status')}}',['q'],'target1');
+	} 
+}
+
+function test()
+{
+
+        ajax('/baadal/admin/setup_host',['q'],'target');    
+	
+}
+
+</script>
+
+<form>
+<input type="button" value="Setup Host"
+      onclick="test();"/>
+
+<br/>
+<br/>
+<br/>
+
+<div id="target"></div>
+<br/>
+<br/>
+<br/>
+<textarea id="target1" rows="20" cols="50" readonly=true>
+</textarea>
+
+</form>
+

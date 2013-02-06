@@ -279,17 +279,21 @@ def machine_details():
     form=FORM('Host Details:',
               TABLE(TR(TD("Host Ip:"),TD(INPUT(_name='hostip',_id='hostip',requires=IS_NOT_EMPTY()))),
 		            TR(TD("Password:"),TD(INPUT(_name='hpass',_type='password',requires=IS_NOT_EMPTY()))),
-					TR(TD(INPUT(_type='checkbox',_value='false',_name="check"),'Setup Host')),
+					TR(TD(INPUT(_type='checkbox',_name='check'),'Setup Host')),
 					TR(TD(INPUT(_type='submit',_value='Submit')))))
-    if form.accepts(request.vars,session):
-               redirect(URL(c='admin', f='add_machine',args=(form.vars.hostip,form.vars.hpass)))
-#              if form.vars.check == "on"
-#                  redirect(URL(c='admin', f='add_machine',args=(form.vars.hostip,form.vars.hpass)))
-#              else
-#                  redirect(URL(c='admin', f='add_machine',args=(form.vars.hostip,form.vars.hpass)))
+    if form.accepts(request.vars,session):   
+              if str(form.vars.check) == "on":
+                  redirect(URL(c='admin', f='start_host_setup',args=(form.vars.hostip,form.vars.hpass)))
+              else:
+                  redirect(URL(c='admin', f='add_machine',args=(form.vars.hostip,form.vars.hpass)))
     elif form.errors:
         response.flash='Error in form'
     return dict(form=form,hosts=results)
+
+
+@auth.requires_login()
+def start_host_setup():
+    return dict()
 
 @auth.requires_login()
 def shut_boot_host():
@@ -503,6 +507,7 @@ def setup_host():
 	import sys, traceback
         etype, value, tb = sys.exc_info()
         msg = ''.join(traceback.format_exception(etype, value, tb, 10))
+	session.flash = msg
 	return msg
         
     return "Complete"
